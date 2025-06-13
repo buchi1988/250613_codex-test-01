@@ -27,14 +27,22 @@ def write_tasks(tasks, file_path=None):
 
 @click.group()
 def cli():
+
+    """シンプルなTODO CLI。"""
+
     """Simple TODO CLI."""
+
     pass
 
 
 @cli.command()
 @click.argument('description')
 def add(description):
+
+    """新しいタスクを追加します。"""
+
     """Add a new task."""
+
     tasks = read_tasks()
     next_id = max([t['id'] for t in tasks], default=0) + 1
     tasks.append({'id': next_id, 'description': description, 'done': False})
@@ -44,7 +52,11 @@ def add(description):
 
 @cli.command(name='list')
 def list_tasks():
+
+    """すべてのタスクを表示します。"""
+
     """List all tasks."""
+
     tasks = read_tasks()
     for t in tasks:
         status = 'x' if t.get('done') else ' '
@@ -54,7 +66,11 @@ def list_tasks():
 @cli.command()
 @click.argument('task_id', type=int)
 def done(task_id):
+
+    """指定したタスクを完了済みにします。"""
+
     """Mark a task as done."""
+
     tasks = read_tasks()
     for t in tasks:
         if t['id'] == task_id:
